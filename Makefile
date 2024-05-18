@@ -4,7 +4,7 @@ AR=ar
 ARFLAGS=rsc
 
 BUILD=build
-TARGET=$(BUILD)/lib/libcurselect.a
+TARGET=$(BUILD)/lib/libcursel.a
 
 SUBDIRS=$(shell cd src && find * -type d)
 MKSUBDIRS=$(addprefix $(BUILD)/obj/, $(SUBDIRS))
@@ -21,13 +21,13 @@ $(TARGET): $(OBJS)
 dirs:
 	mkdir -p $(BUILD)
 	mkdir -p $(BUILD)/bin
-	mkdir -p $(BUILD)/include/curselect
+	mkdir -p $(BUILD)/include/cursel
 	mkdir -p $(BUILD)/obj
 	mkdir -p $(BUILD)/lib
 
 .PHONY: headers
 headers:
-	cp -R include/* $(BUILD)/include/curselect
+	cp -R include/* $(BUILD)/include/cursel
 
 # Mkdir template
 define mk_subdir
