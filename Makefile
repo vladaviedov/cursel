@@ -3,7 +3,7 @@ CFLAGS=-Wall -Wextra -g -std=gnu99 -I./include/
 AR=ar
 ARFLAGS=rsc
 
-BUILD=build
+export BUILD=build
 TARGET=$(BUILD)/lib/libcursel.a
 
 SUBDIRS=$(shell cd src && find * -type d)
@@ -28,6 +28,10 @@ dirs:
 .PHONY: headers
 headers:
 	cp -R include/* $(BUILD)/include/cursel
+
+.PHONY: examples
+examples:
+	$(MAKE) -C examples
 
 # Mkdir template
 define mk_subdir
