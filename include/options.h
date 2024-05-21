@@ -1,3 +1,10 @@
+/**
+ * @file options.h
+ * @author Vladyslav Aviedov <vladaviedov at protonmail dot com>
+ * @date 2024
+ * @license LGPLv3.0
+ * @brief Cursel library options.
+ */
 #pragma once
 
 typedef union {

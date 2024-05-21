@@ -1,3 +1,10 @@
+/**
+ * @file nav.h
+ * @author Vladyslav Aviedov <vladaviedov at protonmail dot com>
+ * @date 2024
+ * @license LGPLv3.0
+ * @brief Navigation menu builder.
+ */
 #pragma once
 
 #include <stdint.h>
