@@ -7,8 +7,8 @@
  */
 #include "nav.h"
 
-#include <stdint.h>
 #include <ncurses.h>
+#include <stdint.h>
 
 #include "state.h"
 
@@ -29,8 +29,8 @@ void cs_show_nav(WINDOW *win, const cs_nav *nav) {
 	int show_desc = 0;
 
 	cs_theme *theme = (nav->theme_override != NULL)
-		? nav->theme_override
-		: &global_state.theme;
+						  ? nav->theme_override
+						  : &global_state.theme;
 
 	while (running) {
 		if (nav->render_hook != NULL) {
@@ -48,7 +48,7 @@ void cs_show_nav(WINDOW *win, const cs_nav *nav) {
 
 			cs_entry *entry = nav->entries + i;
 			cs_theme_element theme_item;
-			
+
 			if (i == selected) {
 				if (entry->disabled) {
 					theme_item = theme->sel_dis;

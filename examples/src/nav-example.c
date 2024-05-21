@@ -1,6 +1,6 @@
+#include <ncurses.h>
 #include <stdint.h>
 #include <time.h>
-#include <ncurses.h>
 
 #include <cursel/nav.h>
 #include <cursel/options.h>

@@ -12,8 +12,8 @@ IncludeCategories:
   - Regex: '^".*'
     Priority: 3
     CaseSensitive: true
-  - Regex: '^<c-utils/'
-    Priority: 2
+  - Regex: '^<cursel/'
+    Priority: 3
     CaseSensitive: true
   - Regex: '^<.*'
     Priority: 1

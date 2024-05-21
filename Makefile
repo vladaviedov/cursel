@@ -62,12 +62,14 @@ FORMAT=clang-format
 FORMAT_CHECK_FLAGS=--dry-run --Werror
 FORMAT_FIX_FLAGS=-i
 
-FORMAT_FILES=$(shell find src -type f)
+FORMAT_FILES=$(shell find src -type f) $(shell find include -type f)
 
 .PHONY: checkformat
 checkformat:
 	$(FORMAT) $(FORMAT_CHECK_FLAGS) $(FORMAT_FILES)
+	$(MAKE) -C examples checkformat
 
 .PHONY: format
 format:
 	$(FORMAT) $(FORMAT_FIX_FLAGS) $(FORMAT_FILES)
+	$(MAKE) -C examples format

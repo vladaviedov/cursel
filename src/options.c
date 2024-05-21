@@ -46,8 +46,8 @@ int cs_init() {
 	}
 
 	return noecho() != ERR
-		&& cbreak() != ERR
-		&& curs_set(0) != ERR;
+		   && cbreak() != ERR
+		   && curs_set(0) != ERR;
 }
 
 int cs_finish() {
@@ -75,7 +75,7 @@ int cs_theme_default(int use_color) {
 		init_pair(Y_COLOR_DESCRIPTION_IDX,
 			Y_COLOR_DESCRIPTION_FG,
 			Y_COLOR_DESCRIPTION_BG);
-		
+
 		global_state.theme.normal.color_pair = Y_COLOR_NORMAL_IDX;
 		global_state.theme.selected.color_pair = Y_COLOR_SELECTED_IDX;
 		global_state.theme.disabled.color_pair = Y_COLOR_DISABLED_IDX;

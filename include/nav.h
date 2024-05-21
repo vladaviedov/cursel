@@ -7,8 +7,8 @@
  */
 #pragma once
 
-#include <stdint.h>
 #include <ncurses.h>
+#include <stdint.h>
 
 #include "options.h"
 
