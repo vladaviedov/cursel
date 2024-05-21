@@ -5,8 +5,6 @@
 #include <cursel/nav.h>
 #include <cursel/options.h>
 
-static char *generate_desc(uint32_t index);
-static char *generate_title(uint32_t index);
 static void select(uint32_t index);
 
 static WINDOW *out_win = NULL;
@@ -28,72 +26,42 @@ int main(void) {
 	cs_entry entries[] = {
 		[0] = {
 			.disabled = 0,
-			.title.is_dynamic = 0,
-			.title.value.preset = "Item 1",
+			.title = "Item 1",
 			.override = NULL,
-			.description.is_dynamic = 0,
-			.description.value.preset = "First item description",
+			.description = "First item description",
 		},
 		[1] = {
 			.disabled = 0,
-			.title.is_dynamic = 0,
-			.title.value.preset = "Item 2",
+			.title = "Item 2",
 			.override = NULL,
-			.description.is_dynamic = 1,
-			.description.value.dynamic = &generate_desc,
+			.description = "Second item description",
 		},
 		[2] = {
 			.disabled = 1,
-			.title.is_dynamic = 0,
-			.title.value.preset = "Disabled Item",
+			.title = "Disabled Item 3",
 			.override = NULL,
-			.description.is_dynamic = 0,
-			.description.value.preset = "First item description",
+			.description = "Disabled item description",
 		},
 		[3] = {
 			.disabled = 0,
-			.title.is_dynamic = 1,
-			.title.value.dynamic = &generate_title,
+			.title = "Item 4",
 			.override = NULL,
-			.description.is_dynamic = 0,
-			.description.value.preset = "Last item description",
+			.description = "Last item description",
 		},
 	};
 	cs_nav nav_menu = {
 		.menu_name = "Example Menu",
 		.entries = entries,
 		.entry_count = sizeof(entries) / sizeof(cs_entry),
-		.select = &select,
 		.theme_override = NULL,
+		.select = &select,
+		.render_hook = NULL,
 	};
 
 	cs_show_nav(menu_win, &nav_menu);
 
 	endwin();
 	return 0;
-}
-
-static char desc_buffer[128];
-
-static char *generate_desc(uint32_t index) {
-	time_t timestamp = time(NULL);
-	struct tm *time_data = localtime(&timestamp);
-	snprintf(desc_buffer, 128, "Current time: %02d:%02d:%02d",
-		time_data->tm_hour,
-		time_data->tm_min,
-		time_data->tm_sec);
-
-	return desc_buffer;
-}
-
-static uint32_t counter = 0;
-static char title_buffer[128];
-
-static char *generate_title(uint32_t index) {
-	counter++;
-	snprintf(title_buffer, 128, "Menu refreshed %u times", counter);
-
-	return title_buffer;
 }
 
 static void select(uint32_t index) {

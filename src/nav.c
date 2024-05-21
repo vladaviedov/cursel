@@ -17,20 +17,27 @@ void cs_show_nav(WINDOW *win, const cs_nav *nav) {
 	int height = getmaxy(win);
 
 	int running = 1;
+
 	uint32_t selected = 0;
+	int show_desc = 0;
 
 	cs_theme *theme = (nav->theme_override != NULL)
 		? nav->theme_override
 		: &global_state.theme;
 
 	while (running) {
+		if (nav->render_hook != NULL) {
+			nav->render_hook();
+		}
+
 		wclear(win);
 
 		box(win, 0, 0);
 		mvwprintw(win, 0, 1, "%s", nav->menu_name);
 
+		uint32_t desc_shift = 0;
 		for (uint32_t i = 0; i < nav->entry_count; i++) {
-			wmove(win, i + 2, 1);
+			wmove(win, i + 2 + desc_shift, 1);
 
 			cs_entry *entry = nav->entries + i;
 			cs_theme_element theme_item;
@@ -56,13 +63,29 @@ void cs_show_nav(WINDOW *win, const cs_nav *nav) {
 				wprintw(win, "%c ", theme_item.decorator);
 			}
 
-			char *name = (entry->title.is_dynamic)
-				? entry->title.value.dynamic(i)
-				: entry->title.value.preset;
-			wprintw(win, "%s", name);
+			wprintw(win, "%s", entry->title);
 
 			if (global_state.use_color) {
 				wattroff(win, COLOR_PAIR(theme_item.color_pair));
+			}
+
+			if (show_desc && i == selected) {
+				wmove(win, i + 3, 3);
+
+				if (global_state.use_color) {
+					wattron(win, COLOR_PAIR(theme->description.color_pair));
+					wprintw(win, "  ");
+				} else {
+					wprintw(win, "%c ", theme->description.decorator);
+				}
+
+				wprintw(win, "%s", entry->description);
+
+				if (global_state.use_color) {
+					wattroff(win, COLOR_PAIR(theme_item.color_pair));
+				}
+
+				desc_shift = 1;
 			}
 		}
 
@@ -91,6 +114,9 @@ void cs_show_nav(WINDOW *win, const cs_nav *nav) {
 			} else {
 				nav->select(selected);
 			}
+			break;
+		case KEY_F(1):
+			show_desc = !show_desc;
 			break;
 		case 'q':
 			running = 0;

@@ -10,6 +10,7 @@ typedef struct {
 	cs_theme_element selected;
 	cs_theme_element disabled;
 	cs_theme_element sel_dis;
+	cs_theme_element description;
 } cs_theme;
 
 int cs_init();

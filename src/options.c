@@ -9,6 +9,7 @@
 #define N_COLOR_SELECTED '>'
 #define N_COLOR_DISABLED 'x'
 #define N_COLOR_SEL_DIS 'z'
+#define N_COLOR_DESCRIPTION ' '
 
 // Yes color - default colors
 #define Y_COLOR_NORMAL_IDX 1
@@ -26,6 +27,10 @@
 #define Y_COLOR_SEL_DIS_IDX 4
 #define Y_COLOR_SEL_DIS_FG COLOR_RED
 #define Y_COLOR_SEL_DIS_BG COLOR_WHITE
+
+#define Y_COLOR_DESCRIPTION_IDX 5
+#define Y_COLOR_DESCRIPTION_FG COLOR_YELLOW
+#define Y_COLOR_DESCRIPTION_BG COLOR_BLACK
 
 int cs_init() {
 	initscr();
@@ -60,18 +65,23 @@ int cs_theme_default(int use_color) {
 		init_pair(Y_COLOR_SEL_DIS_IDX,
 			Y_COLOR_SEL_DIS_FG,
 			Y_COLOR_SEL_DIS_BG);
+		init_pair(Y_COLOR_DESCRIPTION_IDX,
+			Y_COLOR_DESCRIPTION_FG,
+			Y_COLOR_DESCRIPTION_BG);
 		
 		global_state.theme.normal.color_pair = Y_COLOR_NORMAL_IDX;
 		global_state.theme.selected.color_pair = Y_COLOR_SELECTED_IDX;
 		global_state.theme.disabled.color_pair = Y_COLOR_DISABLED_IDX;
 		global_state.theme.sel_dis.color_pair = Y_COLOR_SEL_DIS_IDX;
+		global_state.theme.description.color_pair = Y_COLOR_DESCRIPTION_IDX;
 
 		global_state.use_color = 1;
 	} else {
 		global_state.theme.normal.decorator = N_COLOR_NORMAL;
 		global_state.theme.selected.decorator = N_COLOR_SELECTED;
 		global_state.theme.disabled.decorator = N_COLOR_DISABLED;
-		global_state.theme.sel_dis.color_pair = N_COLOR_SEL_DIS;
+		global_state.theme.sel_dis.decorator = N_COLOR_SEL_DIS;
+		global_state.theme.description.decorator = N_COLOR_DESCRIPTION;
 
 		global_state.use_color = 0;
 	}
